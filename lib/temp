@@ -1,0 +1,32 @@
+Card(
+                          elevation:
+                              5.0, // Adjust the elevation to control the shadow
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                  10.0)), // Adjust the shape of the card
+                          child: ListTile(
+                            title: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Job 1',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15.0),
+                                ),
+                                SizedBox(
+                                    height:
+                                        5.0), // Add a gap of 10.0 pixels between the title and subtitle
+                              ],
+                            ),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Very cool description of this epic job!',
+                                  style: TextStyle(fontSize: 12.0),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
