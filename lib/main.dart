@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 const MaterialColor primaryBlack = MaterialColor(
   _blackPrimaryValue,
@@ -121,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String workTypeValue = '';
   String hoursValue = '';
 
-  Future<String> getData() {
+  Future<http.Response> getData() async {
     return Future.delayed(Duration(seconds: 2), () {
       // if cityValue or other variables are empty, return prompt to fill out
       if (cityValue == '' ||
@@ -133,11 +136,40 @@ class _MyHomePageState extends State<MyHomePage> {
           hoursValue == '') {
         return 'Please fill out all fields';
       } else {
-        // return listbuilder of jobs
-        return 'List of jobs';
-      }
+        // new call api
+        var url = Uri.https(
+                                  'us-central1-brainwaive-76ded.cloudfunctions.net',
+                                  '/gptinput');
+                              var response = await http.post(url,
+                                  headers: {"Content-Type": "application/json"},
+                                  body: json.encode({
+                                    'question': quizTitle,
+                                    'howManyQuestions': 5,
+                                    'isQuestion': 'true'
+                                  }));
 
-      // throw Exception("Custom Error");
+                              mainViewModel.quizQuestions =
+                                  json.decode(response.body);
+
+                              return response;
+
+
+        // call api
+        http.post(
+          Uri.parse('https://jsonplaceholder.typicode.com/albums'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(<String, String>{
+            'City': cityValue,
+            'State': stateList.first,
+            'interest': interestValue,
+            'NumberOfkids': kidsNumValue,
+          }),
+        );
+
+    return 'List of jobs';
+      }
     });
   }
 
@@ -593,7 +625,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       // create container
                       Container(
-                        height: 225,
+                        height: 190,
                         // make color blue
                       ),
                     ],
@@ -645,7 +677,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 return Center(
                                   child: Container(
                                     height:
-                                        650.0, // Set a fixed height for the container
+                                        615.0, // Set a fixed height for the container
                                     child: Expanded(
                                       child: ListView.builder(
                                         itemCount: 10,
@@ -710,6 +742,21 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ],
+            ),
+            // start footer
+            const Divider(
+              color: Colors.grey,
+              height: 20,
+              thickness: 1,
+              indent: 0,
+              endIndent: 0,
+            ),
+            // text for footer
+            const Text(
+              'Made with ❤️ in Boston, MA',
+              style: TextStyle(
+                fontSize: 15,
+              ),
             ),
           ],
         ),
