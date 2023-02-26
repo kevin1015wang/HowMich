@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 const MaterialColor primaryBlack = MaterialColor(
   _blackPrimaryValue,
@@ -664,39 +665,47 @@ class _MyHomePageState extends State<MyHomePage> {
                                         itemCount: resultsData.length,
                                         itemBuilder:
                                             (BuildContext context, int index) {
-                                          return Card(
-                                            elevation:
-                                                5.0, // Adjust the elevation to control the shadow
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(
-                                                    10.0)), // Adjust the shape of the card
-                                            child: ListTile(
-                                              title: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    'Job ${index}',
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 15.0),
-                                                  ),
-                                                  SizedBox(
-                                                      height:
-                                                          5.0), // Add a gap of 10.0 pixels between the title and subtitle
-                                                ],
-                                              ),
-                                              subtitle: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    'Very cool description of this epic job!',
-                                                    style: TextStyle(
-                                                        fontSize: 12.0),
-                                                  ),
-                                                ],
+                                          return InkWell(
+                                            onTap: () {
+                                              // open url
+                                              launch(
+                                                  '${resultsData[index]['url']}');
+                                            },
+                                            child: Card(
+                                              elevation:
+                                                  5.0, // Adjust the elevation to control the shadow
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0)), // Adjust the shape of the card
+                                              child: ListTile(
+                                                title: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      '${resultsData[index]['company']}',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 15.0),
+                                                    ),
+                                                    SizedBox(
+                                                        height:
+                                                            5.0), // Add a gap of 10.0 pixels between the title and subtitle
+                                                  ],
+                                                ),
+                                                subtitle: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      '${resultsData[index]['jobTitle']}',
+                                                      style: TextStyle(
+                                                          fontSize: 12.0),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           );
