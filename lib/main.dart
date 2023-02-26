@@ -410,50 +410,6 @@ class _MyHomePageState extends State<MyHomePage> {
                         height: 5,
                       ),
 
-                      // ask user for number of kids
-                      Row(
-                        children: <Widget>[
-                          // create text
-                          const Text(
-                            'Number of Kids:',
-                          ),
-
-                          // create space between text and textEntry
-                          const SizedBox(
-                            width: 30,
-                          ),
-
-                          // create textEntry
-                          // containder with 200 width
-                          Container(
-                            width: 200,
-                            height: 40,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8.0),
-                              border: Border.all(color: Colors.grey),
-                            ),
-                            child: TextField(
-                              decoration: InputDecoration(
-                                hintText: 'Enter number of kids',
-                                border: InputBorder.none,
-                                contentPadding: EdgeInsets.symmetric(
-                                    vertical: 16.0, horizontal: 5.0),
-                              ),
-                              onChanged: (text) {
-                                setState(() {
-                                  kidsNumValue = text;
-                                });
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-
-                      // spacing
-                      const SizedBox(
-                        height: 5,
-                      ),
-
                       // ask user for preferred income
                       Row(
                         children: <Widget>[
@@ -574,6 +530,50 @@ class _MyHomePageState extends State<MyHomePage> {
                               onChanged: (text) {
                                 setState(() {
                                   hoursValue = text;
+                                });
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      // spacing
+                      const SizedBox(
+                        height: 5,
+                      ),
+
+                      // ask user for number of kids
+                      Row(
+                        children: <Widget>[
+                          // create text
+                          const Text(
+                            'Number of Kids:',
+                          ),
+
+                          // create space between text and textEntry
+                          const SizedBox(
+                            width: 30,
+                          ),
+
+                          // create textEntry
+                          // containder with 200 width
+                          Container(
+                            width: 200,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.0),
+                              border: Border.all(color: Colors.grey),
+                            ),
+                            child: TextField(
+                              decoration: InputDecoration(
+                                hintText: 'Enter number of kids',
+                                border: InputBorder.none,
+                                contentPadding: EdgeInsets.symmetric(
+                                    vertical: 16.0, horizontal: 5.0),
+                              ),
+                              onChanged: (text) {
+                                setState(() {
+                                  kidsNumValue = text;
                                 });
                               },
                             ),
