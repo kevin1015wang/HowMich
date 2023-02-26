@@ -126,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   var resultsData = [];
 
-  Future<Object> getData() async {
+  Future<String> getData() async {
     // if cityValue or other variables are empty, return prompt to fill out
     if (cityValue == '' ||
         interestValue == '' ||
@@ -137,8 +137,8 @@ class _MyHomePageState extends State<MyHomePage> {
         hoursValue == '') {
       return 'Please fill out all fields';
     } else {
-      var url = Uri.https(
-          'https://us-central1-howmich.cloudfunctions.net', '/HowMichData');
+      var url =
+          Uri.https('us-central1-howmich.cloudfunctions.net', '/HowMichData');
       var response = await http.post(url,
           headers: {"Content-Type": "application/json"},
           body: json.encode({
@@ -150,7 +150,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
       resultsData = json.decode(response.body);
 
-      return response;
+      return 'Done';
     }
   }
 
@@ -661,7 +661,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         615.0, // Set a fixed height for the container
                                     child: Expanded(
                                       child: ListView.builder(
-                                        itemCount: 10,
+                                        itemCount: resultsData.length,
                                         itemBuilder:
                                             (BuildContext context, int index) {
                                           return Card(
