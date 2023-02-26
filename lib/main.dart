@@ -124,53 +124,34 @@ class _MyHomePageState extends State<MyHomePage> {
   String workTypeValue = '';
   String hoursValue = '';
 
-  Future<http.Response> getData() async {
-    return Future.delayed(Duration(seconds: 2), () {
-      // if cityValue or other variables are empty, return prompt to fill out
-      if (cityValue == '' ||
-          interestValue == '' ||
-          educationValue == '' ||
-          kidsNumValue == '' ||
-          incomeValue == '' ||
-          workTypeValue == '' ||
-          hoursValue == '') {
-        return 'Please fill out all fields';
-      } else {
-        // new call api
-        var url = Uri.https(
-                                  'us-central1-brainwaive-76ded.cloudfunctions.net',
-                                  '/gptinput');
-                              var response = await http.post(url,
-                                  headers: {"Content-Type": "application/json"},
-                                  body: json.encode({
-                                    'question': quizTitle,
-                                    'howManyQuestions': 5,
-                                    'isQuestion': 'true'
-                                  }));
+  var resultsData = [];
 
-                              mainViewModel.quizQuestions =
-                                  json.decode(response.body);
-
-                              return response;
-
-
-        // call api
-        http.post(
-          Uri.parse('https://jsonplaceholder.typicode.com/albums'),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-          },
-          body: jsonEncode(<String, String>{
+  Future<Object> getData() async {
+    // if cityValue or other variables are empty, return prompt to fill out
+    if (cityValue == '' ||
+        interestValue == '' ||
+        educationValue == '' ||
+        kidsNumValue == '' ||
+        incomeValue == '' ||
+        workTypeValue == '' ||
+        hoursValue == '') {
+      return 'Please fill out all fields';
+    } else {
+      var url = Uri.https(
+          'https://us-central1-howmich.cloudfunctions.net', '/HowMichData');
+      var response = await http.post(url,
+          headers: {"Content-Type": "application/json"},
+          body: json.encode({
             'City': cityValue,
-            'State': stateList.first,
+            'State': dropdownValue,
             'interest': interestValue,
             'NumberOfkids': kidsNumValue,
-          }),
-        );
+          }));
 
-    return 'List of jobs';
-      }
-    });
+      resultsData = json.decode(response.body);
+
+      return response;
+    }
   }
 
   @override
