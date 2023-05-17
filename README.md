@@ -1,5 +1,7 @@
 # Jobs for Parents
 
+<p align="center"><img src=https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/002/400/438/datas/gallery.jpg width=700 /></p>
+
 Jobs for Parents is a Flutter Web App that helps parents find appropriate jobs. It was created at the Boston University Tech for Change Hackathon 2023.
 
 ## Features
